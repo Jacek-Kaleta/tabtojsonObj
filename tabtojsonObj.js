@@ -37,6 +37,7 @@ var tabtojsonObj = module.exports.tabtojsonObj = function(text, param) {
 
     function processlines(d, obj) {
         let parname = undefined;
+
         while (i < lines.length) {
             let line = lines[i];
             if (line.trim().length == 0) throw param.onError(0, i);
@@ -44,41 +45,49 @@ var tabtojsonObj = module.exports.tabtojsonObj = function(text, param) {
             line = line.trim();
 
             if (l == d) {
-                let j = line.indexOf('=')
+                let j = line.indexOf('[]');
+                if (j >= 0) {
+                    if (j > 0)
+                        parname = line.substr(0, j).trim();
+                    if (parname == undefined) throw param.onError(1, i + 1);
+                    let value = line.substring(j + 2).trim();
+                    if (obj[parname] == undefined)
+                        obj[parname] = [];
+                    if (value.length > 0)
+                        if (value.substr(0, 1) == '=')
+                            value = value.substr(1).trim();
+                    if (value.length > 0)
+                        obj[parname].push(value);
+                    else
+                        obj[parname].push({});
+                    i++;
+                    continue;
+                }
+                j = line.indexOf('@');
+                if (j > 0) {
+                    let l = (lines[i].match(/^\t*/))[0].length;
+                    parname = line.trim();
+                    let text = "";
+                    i++;
+                    while (i < lines.length && l < (lines[i].match(/^\t*/))[0].length) {
+                        text += ((text.length > 0) ? '\r\n' : '') + lines[i].substr(l + 1);
+                        i++
+                    }
+                    obj[parname] = text
+                    continue;
+                }
+                j = line.indexOf('=')
                 if (j >= 0) {
                     parname = line.substr(0, j).trim();
                     obj[parname] = line.substr(j + 1).trim();
                     i++
-                } else {
-                    j = line.indexOf('[]');
-                    if (j >= 0) {
-                        if (j > 0)
-                            parname = line.substr(0, j).trim();
-                        if (parname == undefined) throw param.onError(1, i + 1);
-                        if (obj[parname] == undefined)
-                            obj[parname] = [];
-                        obj[parname].push({});
-                        i++;
-                    } else {
-                        j = line.indexOf('@');
-                        if (j > 0) {
-                            let l = (lines[i].match(/^\t*/))[0].length;
-                            parname = line.trim();
-                            let text = "";
-                            i++;
-                            while (i < lines.length && l < (lines[i].match(/^\t*/))[0].length) {
-                                text += ((text.length > 0) ? '\r\n' : '') + lines[i].substr(l + 1);
-                                i++
-                            }
-                            obj[parname] = text
-                        } else {
-                            parname = line
-                            if (obj[parname] != undefined) throw param.onError(3, i + 1);
-                            obj[parname] = {}
-                            i++;
-                        }
-                    }
+                    continue;
                 }
+                parname = line
+                if (obj[parname] != undefined) throw param.onError(3, i + 1);
+                obj[parname] = {}
+                i++;
+                continue;
             } else
             if (l == d + 1) {
                 if (parname == undefined) throw param.onError(5, i + 1);
