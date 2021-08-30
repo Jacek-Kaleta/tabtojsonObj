@@ -1,4 +1,4 @@
-const tj = require("tabtojsonobj");
+const tj = require("./tabtojsonobj");
 const fs = require('fs');
 
 let text = fs.readFileSync('./test.txt').toString();
