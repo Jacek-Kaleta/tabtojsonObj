@@ -1,0 +1,25 @@
+Root1
+	ArrayElement[] = 1
+	ArrayElement[] = 2
+	ArrayElement[] = 3
+	ArrayElement[]
+		property0 =  0
+		property1
+			Array[] = A
+			Array[] = B
+			Array[] = C
+	ArrayElement[]
+		property1 = textvalue1
+		property2 = textvalue2
+		property3
+			ArrayElement[]
+				property = name
+				value = Yes				
+			ArrayElement[]
+				property = name
+				value = No
+			TabTextElement@
+				SELECT
+					1 X
+				FROM
+				DUAL
