@@ -25,7 +25,7 @@ The indents must be tab characters, and a child must have one more tab than its 
 Your test.txt:
 
     
-    const tj = require("tabtojsonobj");
+    const tj = require("./tabtojsonObj");
     const fs = require('fs');
 
 
