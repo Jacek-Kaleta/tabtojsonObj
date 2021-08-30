@@ -1,0 +1,23 @@
+{
+  "name": "tabtojsonobj",
+  "version": "1.0.0",
+  "description": "Convert text with tabs to json object",
+  "main": "tabtojsonObj.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jacek-Kaleta/tabtojsonObj.git"
+  },
+  "keywords": [
+    "json",
+    "tab"
+  ],
+  "author": "Jacek Kaleta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jacek-Kaleta/tabtojsonObj/issues"
+  },
+  "homepage": "https://github.com/Jacek-Kaleta/tabtojsonObj#readme"
+}
