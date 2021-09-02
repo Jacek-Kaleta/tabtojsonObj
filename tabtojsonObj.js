@@ -40,7 +40,7 @@ var tabtojsonObj = module.exports.tabtojsonObj = function(text, param) {
 
         while (i < lines.length) {
             let line = lines[i];
-            if (line.trim().length == 0) throw param.onError(0, i+1);
+            if (line.trim().length == 0) throw param.onError(0, i + 1);
             let l = (line.match(/^\t*/))[0].length;
             line = line.trim();
 
